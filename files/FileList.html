@@ -1,0 +1,9 @@
+<ul class="list-group">
+    <li ng-repeat="file in file.files | orderBy:['-is_dir','name'] | filter:FileListSearchFilter" class="list-group-item">
+        <i ng-if="file.extension == 'mkv' || file.extension == 'mp4'" class="fa fa-film"></i>
+        <i ng-if="file.extension == 'pdf' " class="fa fa-file-pdf-o"></i>
+        <i ng-if="file.is_dir" class="fa fa-folder-open-o"></i>
+        <a ng-if="!file.is_dir" href="scripts/download.php?file={{ file.path }}">{{ file.name }}</a>
+        <a ng-if="file.is_dir" ui-sref="f({ folder: file.path })">{{ file.name }}</a>
+    </li>
+</ul>
