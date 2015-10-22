@@ -10,8 +10,6 @@
         vm.files = [];
         vm.folder = $stateParams.folder;
 
-        vm.refreshFileList = refreshFileList;
-
         activate();
 
         function activate() {
@@ -26,10 +24,6 @@
                 });
         }
 
-        function refreshFileList() {
-            vm.files.forEach(function(file) {
-            });
-        }
     }
 
 })();
