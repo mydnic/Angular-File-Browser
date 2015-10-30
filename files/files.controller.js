@@ -1,4 +1,4 @@
-(function (){
+(function() {
     'use strict';
 
     angular
@@ -23,7 +23,5 @@
                     return vm.files;
                 });
         }
-
     }
-
 })();

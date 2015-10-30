@@ -1,4 +1,4 @@
-(function (){
+(function() {
     'use strict';
     
     angular
@@ -19,5 +19,4 @@
                 templateUrl: 'files/show.html'
             });
     }
-
 })();

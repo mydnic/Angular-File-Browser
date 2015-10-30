@@ -1,4 +1,4 @@
-(function (){
+(function() {
     'use strict';
     
     angular
@@ -14,5 +14,4 @@
             controllerAs: 'file',
         };
     }
-
 })();
