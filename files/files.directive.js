@@ -8,7 +8,7 @@
     function fileList() {
         // Runs during compile
         return {
-            restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
+            restrict: 'A',
             templateUrl: 'files/FileList.html',
             controller: 'FileController',
             controllerAs: 'file',
