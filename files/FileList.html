@@ -8,7 +8,7 @@
         <i ng-if="file.is_dir" class="fa fa-folder-open-o"></i>
         
         <!-- LINK -->
-        <a ng-if="!file.is_dir" href="scripts/download.php?file={{ file.path }}">{{ file.name }}</a>
+        <a ng-if="!file.is_dir" href="/scripts/download.php?file={{ file.path }}">{{ file.name }}</a>
         <a ng-if="file.is_dir" ui-sref="f({ folder: file.path })">{{ file.name }}</a>
     </li>
 </ul>
