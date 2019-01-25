@@ -5,8 +5,16 @@
                 <h1>My Files</h1>
 
                 <input type="text" class="form-control add-todo" placeholder="Search" ng-model="FileListSearchFilter">
-                    
+
+
                 <hr>
+                {{file.folder}}
+                <div ng-if="file.folder" style="margin-bottom:10px;" class="text-right">
+                    <a href="/scripts/archive.php?folder={{ file.folder }}">
+                        Télécharger le contenu du répertoire en ZIP
+                        <i class="fa fa-file-archive-o"></i>
+                    </a>
+                </div>
 
                 <div data-file-list></div>
 
@@ -17,7 +25,9 @@
                         </span>
                     </strong>
                     Total Items
-                    <a class="pull-right" ui-sref="f({ folder: '' })"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                    <a class="pull-right" ui-sref="f({ folder: '' })"><i class="fa fa-home" aria-hidden="true"></i>
+                        Home
+                    </a>
                 </div>
             </div>
         </div>
