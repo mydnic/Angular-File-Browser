@@ -6,7 +6,9 @@ $config = include '../config.php';
 
 $folder = $config['path'] . '/' . $_GET['folder'];
 
-new GoodZipArchive($folder, $folder . '/archive.zip');
+if (!file_exists($folder . '/archive.zip')) {
+    new GoodZipArchive($folder, $folder . '/archive.zip');
+}
 
 $file = $folder . '/archive.zip';
 
