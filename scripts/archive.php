@@ -2,16 +2,13 @@
 
 set_time_limit(300);
 
-include './GoodZipArchive.php';
-
 $config = include '../config.php';
 
 $folder = $config['path'] . '/' . $_GET['folder'];
 $archiveFile = $folder . '/archive.zip';
 
 if (!file_exists($archiveFile)) {
-    exec("zip -r $archiveFile $folder");
-    // Zip($folder, $archiveFile);
+    exec("zip -r \"$archiveFile\" \"$folder\"");
 }
 
 header('Content-Description: File Transfer');
