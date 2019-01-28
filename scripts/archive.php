@@ -7,22 +7,21 @@ include './GoodZipArchive.php';
 $config = include '../config.php';
 
 $folder = $config['path'] . '/' . $_GET['folder'];
+$archiveFile = $folder . '/archive.zip';
 
-if (!file_exists($folder . '/archive.zip')) {
-    new GoodZipArchive($folder, $folder . '/archive.zip');
+if (!file_exists($archiveFile)) {
+    Zip($folder, $archiveFile);
 }
-
-$file = $folder . '/archive.zip';
 
 header('Content-Description: File Transfer');
 header('Content-Type: application/octet-stream');
-header('Content-Disposition: attachment; filename=' . basename($file));
+header('Content-Disposition: attachment; filename=' . basename($archiveFile));
 header('Content-Transfer-Encoding: binary');
 header('Expires: 0');
 header('Cache-Control: must-revalidate');
 header('Pragma: public');
-header('Content-Length: ' . filesize($file));
+header('Content-Length: ' . filesize($archiveFile));
 ob_clean();
 flush();
-readfile($file);
+readfile($archiveFile);
 exit;

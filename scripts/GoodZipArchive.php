@@ -1,46 +1,40 @@
 <?php
 
-class GoodZipArchive extends ZipArchive
+function Zip($source, $destination)
 {
-    public function __construct($a = false, $b = false)
-    {
-        $this->create_func($a, $b);
+    if (!extension_loaded('zip') || !file_exists($source)) {
+        return false;
     }
 
-    public function create_func($input_folder = false, $output_zip_file = false)
-    {
-        if ($input_folder && $output_zip_file) {
-            $res = $this->open($output_zip_file, ZipArchive::CREATE);
-            if ($res === true) {
-                $this->addDir($input_folder, basename($input_folder));
-                $this->close();
-            } else {
-                echo 'Could not create a zip archive. Contact Admin.';
-            }
-        }
+    $zip = new ZipArchive();
+    if (!$zip->open($destination, ZIPARCHIVE::CREATE)) {
+        return false;
     }
 
-    // Add a Dir with Files and Subdirs to the archive
-    public function addDir($location, $name)
-    {
-        $this->addEmptyDir($name);
-        $this->addDirDo($location, $name);
-    }
+    $source = str_replace('\\', '/', realpath($source));
 
-    // Add Files & Dirs to archive
-    private function addDirDo($location, $name)
-    {
-        $name .= '/';
-        $location .= '/';
-        // Read all Files in Dir
-        $dir = opendir($location);
-        while ($file = readdir($dir)) {
-            if ($file == '.' || $file == '..') {
+    if (is_dir($source) === true) {
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
+
+        foreach ($files as $file) {
+            $file = str_replace('\\', '/', $file);
+
+            // Ignore "." and ".." folders
+            if (in_array(substr($file, strrpos($file, '/') + 1), ['.', '..'])) {
                 continue;
             }
-            // Rekursiv, If dir: GoodZipArchive::addDir(), else ::File();
-            $do = (filetype($location . $file) == 'dir') ? 'addDir' : 'addFile';
-            $this->$do($location . $file, $name . $file);
+
+            $file = realpath($file);
+
+            if (is_dir($file) === true) {
+                $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+            } elseif (is_file($file) === true) {
+                $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
+            }
         }
+    } elseif (is_file($source) === true) {
+        $zip->addFromString(basename($source), file_get_contents($source));
     }
+
+    return $zip->close();
 }
