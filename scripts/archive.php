@@ -10,7 +10,8 @@ $folder = $config['path'] . '/' . $_GET['folder'];
 $archiveFile = $folder . '/archive.zip';
 
 if (!file_exists($archiveFile)) {
-    Zip($folder, $archiveFile);
+    exec("zip -r $archiveFile $folder");
+    // Zip($folder, $archiveFile);
 }
 
 header('Content-Description: File Transfer');
